@@ -1,10 +1,11 @@
 #!/usr/bin/env bash
 
 # Absolute path of this script
-SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+SCRIPT_PATH="$(readlink -f "$0")"
+SCRIPT_DIR="$(dirname "$SCRIPT_PATH")"
 
 DOCKER_DIR="$SCRIPT_DIR/docker"
-COMPOSE_FILE="$SCRIPT_DIR/app/compose.yaml"
+COMPOSE_FILE="$SCRIPT_DIR/src/app/compose.yaml"
 
 COMMAND="$1"
 shift 1 # remove first arg so remaining args become options
