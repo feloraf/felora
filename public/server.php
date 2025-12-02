@@ -1,10 +1,7 @@
 <?php
 
-$http = new Swoole\Http\Server('0.0.0.0', 9501);
-$http->set(['hook_flags' => SWOOLE_HOOK_ALL]);
+define('MQTT_AUTH_START', microtime(true));
 
-$http->on('request', function ($request, $response) {
-    $response->end(json_encode([]));
-});
+require_once __DIR__."/../app/vendor/autoload.php";
 
-$http->start();
+return new App\Bootable();
