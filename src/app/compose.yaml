@@ -1,11 +1,11 @@
 services:
   app:
-    image: mqtt-auth/swoole
-    container_name: mqtt-auth
+    image: feloraphp/swoole
+    container_name: feloraphp
     environment:
       AUTORELOAD_PROGRAMS: "swoole"
       AUTORELOAD_ANY_FILES: 0
     ports:
       - ${PORT:-9501}:${PORT:-9501}
     volumes:
-      - ..:/var/www/mqtt-auth
+      - ..:/var/www/feloraphp

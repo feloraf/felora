@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
+CONTAINER_NAME=feloraphp
 # Absolute path of this script
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
-CONTAINER_NAME=mqtt-auth
 
 echo "--------------------------------------------"
 echo " Running command inside Docker container..."

@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+CONTAINER_NAME=feloraphp
 # Absolute path of this script
 SCRIPT_PATH="$(readlink -f "$0")"
 SCRIPT_DIR="$(dirname "$SCRIPT_PATH")"
@@ -13,7 +14,7 @@ shift 1 # remove first arg so remaining args become options
 case "$COMMAND" in
     build)
         echo "Building Docker image..."
-        docker build "$DOCKER_DIR" --tag mqtt-auth/swoole "$@"
+        docker build "$DOCKER_DIR" --tag $CONTAINER_NAME/swoole "$@"
         ;;
 
     up)
@@ -27,18 +28,18 @@ case "$COMMAND" in
         ;;
 
     --help|"")
-        echo "Usage: mqtt-auth <command> [options]"
+        echo "Usage: $CONTAINER_NAME <command> [options]"
         echo ""
         echo "Commands:"
-        echo "  build                 Build the Docker image (mqtt-auth/swoole)"
+        echo "  build                 Build the Docker image ($CONTAINER_NAME/swoole)"
         echo "  up [options]          docker compose up (e.g. -d)"
         echo "  down [options]        docker compose down (e.g. --remove-orphans)"
         echo "  --help                Show this help"
         echo ""
         echo "Examples:"
-        echo "  mqtt-auth build"
-        echo "  mqtt-auth up -d"
-        echo "  mqtt-auth down --remove-orphans"
+        echo "  $CONTAINER_NAME build"
+        echo "  $CONTAINER_NAME up -d"
+        echo "  $CONTAINER_NAME down --remove-orphans"
         ;;
 
     *)

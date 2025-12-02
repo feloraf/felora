@@ -10,7 +10,8 @@ class Bootable
 
         $http->on('request', function ($request, $response) {
             $result = [];
-            $response->end(json_encode([]));
+            $rand = random_int(10, 100);
+            $response->end(json_encode(['your_rand_item' => $rand]));
         });
 
         $http->start();
