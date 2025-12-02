@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+# Absolute path of this script
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+CONTAINER_NAME=mqtt-auth
+
+echo "--------------------------------------------"
+echo " Running command inside Docker container..."
+echo " Container: $CONTAINER_NAME"
+echo " Command: $@"
+echo "--------------------------------------------"
+
+# Check if container exists and is running
+if ! docker ps --format '{{.Names}}' | grep -q "^$CONTAINER_NAME$"; then
+    echo "Error: Container '$CONTAINER_NAME' is not running."
+    echo "Please start it first:  $CONTAINER_NAME up -d"
+    exit 1
+fi
+
+# Execute the command inside the container
+docker exec -it $CONTAINER_NAME /bin/bash -c "$@"
