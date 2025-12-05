@@ -1,11 +1,11 @@
 services:
   app:
-    image: feloraphp/swoole
-    container_name: feloraphp
+    image: felora/swoole
+    container_name: felora
     environment:
       AUTORELOAD_PROGRAMS: "swoole"
       AUTORELOAD_ANY_FILES: 0
     ports:
       - ${PORT:-9501}:${PORT:-9501}
     volumes:
-      - ..:/var/www/feloraphp
+      - ..:/var/www/felora

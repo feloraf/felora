@@ -1,2 +1,2 @@
-# feloraphp
-FeloraPHP swoole mini framework
+# Felora
+Felora swoole mini framework

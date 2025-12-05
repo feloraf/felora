@@ -1,13 +1,11 @@
 #!/usr/bin/env bash
 
-CONTAINER_NAME=feloraphp
+CONTAINER_NAME=felora
 # Absolute path of this script
 SCRIPT_PATH="$(readlink -f "$0")"
 SCRIPT_DIR="$(dirname "$SCRIPT_PATH")"
-
 DOCKER_DIR="$SCRIPT_DIR/docker"
 COMPOSE_FILE="$SCRIPT_DIR/src/app/compose.yaml"
-
 COMMAND="$1"
 shift 1 # remove first arg so remaining args become options
 
