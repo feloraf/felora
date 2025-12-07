@@ -3,5 +3,12 @@
         "psr-4": {
             "App\\": "./"
         }
+    },
+    "require-dev": {
+        "symfony/var-dumper": "^8.0",
+        "symfony/debug-bundle": "^8.0"
+    },
+    "require": {
+        "feloraf/core": "dev-develop"
     }
 }
