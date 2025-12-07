@@ -8,4 +8,4 @@ services:
     ports:
       - ${PORT:-9501}:${PORT:-9501}
     volumes:
-      - ..:/var/www/felora
+      - .:/var/www/felora

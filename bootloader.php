@@ -1,7 +1,6 @@
 <?php
-namespace App;
 
-class Bootable
+class Bootloader
 {
     public function __construct()
     {
