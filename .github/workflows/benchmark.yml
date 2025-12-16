@@ -1,0 +1,43 @@
+name: Felora Benchmark
+
+on:
+  push:
+    branches: [dev]
+  pull_request:
+    branches: [dev]
+  workflow_dispatch:
+
+jobs:
+  benchmark:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.4
+          extensions: mbstring, curl, sockets
+
+      - name: Install Composer Dependencies
+        run: composer install --no-interaction --prefer-dist --optimize-autoloader
+
+      - name: Build Felora
+        run: ./felora build
+
+      - name: Start Felora Server
+        run: ./felora up &
+
+      - name: Wait for server
+        run: sleep 5
+
+      - name: Install wrk
+        run: sudo apt-get update && sudo apt-get install -y wrk
+
+      - name: Benchmark with wrk
+        run: wrk -t4 -c100 -d20s http://127.0.0.1:9501/json
+
+      - name: Stop Felora server
+        run: ./felora down
