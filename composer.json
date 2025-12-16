@@ -1,9 +1,19 @@
 {
+    "name": "feloraf/felora",
+    "description": "A Swoole-based framework for developing high-performance applications.",
+    "type": "project",
     "require-dev": {
         "symfony/var-dumper": "^8.0",
         "symfony/debug-bundle": "^8.0"
     },
     "require": {
         "feloraf/core": "dev-develop"
-    }
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Felora.dev"
+        }
+    ],
+    "minimum-stability": "dev"
 }
