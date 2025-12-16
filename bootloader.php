@@ -1,16 +1,27 @@
 <?php
 
-class Bootloader
+use Felora\Bootloader\Bootloader as FeloraBootloader;
+
+class Bootloader extends FeloraBootloader
 {
-    public function __construct()
+    public static function setUp(): void
     {
-        $http = new \Swoole\Http\Server('0.0.0.0', 9501);
+        static::setUp();
+    }
+
+    protected function setConfig(): string
+    {
+        return __DIR__.'/config.php';
+    }
+
+    public function server(): void
+    {
+        $http = new Swoole\Http\Server('0.0.0.0', 9501);
         $http->set(['hook_flags' => SWOOLE_HOOK_ALL]);
 
         $http->on('request', function ($request, $response) {
-            $result = [];
-            $rand = random_int(10, 100);
-            $response->end(json_encode(['your_rand_item' => $rand]));
+            $response->header('Content-Type', 'application/json');
+            $response->end(json_encode(['rand' => rand(1, 100)]));
         });
 
         $http->start();
