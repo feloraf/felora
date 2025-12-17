@@ -20,6 +20,7 @@ class Bootloader extends FeloraBootloader
         $http->set(['hook_flags' => SWOOLE_HOOK_ALL]);
 
         $http->on('request', function ($request, $response) {
+            usleep(20000);
             $response->header('Content-Type', 'application/json');
             $response->end(json_encode(['rand' => rand(1, 100)]));
         });
