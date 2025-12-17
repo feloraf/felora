@@ -51,3 +51,34 @@ jobs:
 
       - name: Stop Felora server
         run: ./felora down
+
+      - name: Compare with baseline
+        run: |
+          BASE_REQ=$(jq '.requests_per_sec' benchmarks/baseline.json)
+          BASE_LAT=$(jq '.latency_avg_ms' benchmarks/baseline.json)
+
+          CUR_REQ=$REQ_PER_SEC
+          CUR_LAT=$LATENCY_AVG
+
+          REQ_DIFF=$(awk "BEGIN { printf \"%.2f\", (($CUR_REQ - $BASE_REQ) / $BASE_REQ) * 100 }")
+          LAT_DIFF=$(awk "BEGIN { printf \"%.2f\", (($CUR_LAT - $BASE_LAT) / $BASE_LAT) * 100 }")
+
+          echo "Baseline Requests/sec: $BASE_REQ"
+          echo "Current  Requests/sec: $CUR_REQ"
+          echo "Change: $REQ_DIFF %"
+
+          echo "Baseline Latency (ms): $BASE_LAT"
+          echo "Current  Latency (ms): $CUR_LAT"
+          echo "Change: $LAT_DIFF %"
+
+          if awk "BEGIN {exit !($CUR_REQ < $BASE_REQ)}"; then
+            echo "⚠️ Requests/sec decreased"
+          else
+            echo "✅ Requests/sec OK"
+          fi
+
+          if awk "BEGIN {exit !($CUR_LAT > $BASE_LAT)}"; then
+            echo "⚠️ Latency increased"
+          else
+            echo "✅ Latency OK"
+          fi
