@@ -39,11 +39,16 @@ jobs:
       - name: Benchmark with wrk
         run: |
           OUTPUT=$(wrk -t4 -c100 -d20s http://127.0.0.1:9501/json)
-
-          echo "$OUTPUT"
-
-          REQ_PER_SEC=$(echo "$OUTPUT" | grep "Requests/sec" | awk '{print $2}')
+          REQ_PER_SEC=$(echo "$OUTPUT" | grep "Requests/sec" | awk '{print $NF}')
           LATENCY_AVG=$(echo "$OUTPUT" | grep "Latency" | head -n 1 | awk '{print $2}' | sed 's/ms//')
+
+          if [ -z "$REQ_PER_SEC" ] || [ -z "$LATENCY_AVG" ]; then
+            echo "Failed to parse wrk output"
+            exit 1
+          fi
+
+          echo "REQ_PER_SEC=$REQ_PER_SEC" >> $GITHUB_ENV
+          echo "LATENCY_AVG=$LATENCY_AVG" >> $GITHUB_ENV
 
           echo "Parsed results:"
           echo "Requests/sec = $REQ_PER_SEC"
