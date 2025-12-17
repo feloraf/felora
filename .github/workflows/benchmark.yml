@@ -68,6 +68,9 @@ jobs:
           REQ_DIFF=$(awk "BEGIN { printf \"%.2f\", (($CUR_REQ - $BASE_REQ) / $BASE_REQ) * 100 }")
           LAT_DIFF=$(awk "BEGIN { printf \"%.2f\", (($CUR_LAT - $BASE_LAT) / $BASE_LAT) * 100 }")
 
+          echo "REQ_DIFF=$REQ_DIFF" >> $GITHUB_ENV
+          echo "LAT_DIFF=$LAT_DIFF" >> $GITHUB_ENV
+
           echo "Baseline Requests/sec: $BASE_REQ"
           echo "Current  Requests/sec: $CUR_REQ"
           echo "Change: $REQ_DIFF %"
@@ -87,3 +90,20 @@ jobs:
           else
             echo "✅ Latency OK"
           fi
+
+      - name: Report Benchmark to PR
+        if: github.event_name == 'pull_request'
+        uses: peter-evans/create-or-update-comment@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          repository: ${{ github.repository }}
+          issue-number: ${{ github.event.pull_request.number }}
+          body: |
+            ## ⚡ Felora Benchmark Results
+
+            | Metric | Baseline | Current | Change |
+            |--------|---------|---------|--------|
+            | Requests/sec | 45000 | ${{ env.REQ_PER_SEC }} | ${{ env.REQ_DIFF }}% |
+            | Latency (ms) | 2.17  | ${{ env.LATENCY_AVG }} | ${{ env.LAT_DIFF }}% |
+
+            _Note: Only reporting; CI does not fail on benchmark changes._
