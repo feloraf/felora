@@ -76,14 +76,14 @@ jobs:
           echo "Current  Latency (ms): $CUR_LAT"
           echo "Change: $LAT_DIFF %"
 
-          if awk "BEGIN {exit !($CUR_REQ < $BASE_REQ)}"; then
-            echo "⚠️ Requests/sec decreased"
+          if (( $(echo "$CUR_REQ < $BASE_REQ" | bc -l) )); then
+            echo "::warning::⚠️ Requests/sec decreased by $REQ_DIFF%"
           else
             echo "✅ Requests/sec OK"
           fi
 
-          if awk "BEGIN {exit !($CUR_LAT > $BASE_LAT)}"; then
-            echo "⚠️ Latency increased"
+          if (( $(echo "$CUR_LAT > $BASE_LAT" | bc -l) )); then
+            echo "::warning::⚠️ Latency increased by $LAT_DIFF%"
           else
             echo "✅ Latency OK"
           fi
