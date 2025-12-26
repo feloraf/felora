@@ -4,9 +4,8 @@ services:
     container_name: felora
     environment:
       AUTORELOAD_PROGRAMS: "swoole"
-      AUTORELOAD_ANY_FILES: 1
+      AUTORELOAD_ANY_FILES: 0
     ports:
       - ${PORT:-9501}:${PORT:-9501}
-      - ${PORT:-9502}:${PORT:-9502}
     volumes:
       - .:/var/www/felora
