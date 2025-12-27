@@ -7,5 +7,7 @@ services:
       AUTORELOAD_ANY_FILES: 0
     ports:
       - ${PORT:-9501}:${PORT:-9501}
+      - ${PORT:-9502}:${PORT:-9502}
+      - ${PORT:-9550}:${PORT:-9550}
     volumes:
       - .:/var/www/felora

@@ -9,8 +9,8 @@ class Bootloader extends FeloraBootloader
         static::setUp();
     }
 
-    protected function setConfig(): string
+    protected function base(): string
     {
-        return __DIR__.'/config.php';
+        return __DIR__;
     }
 }
