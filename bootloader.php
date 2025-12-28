@@ -4,13 +4,18 @@ use Felora\Bootloader\Bootloader as FeloraBootloader;
 
 class Bootloader extends FeloraBootloader
 {
-    public static function setUp(): void
+    public function setUp(): void
     {
-        static::setUp();
+        //
     }
 
-    protected function setConfig(): string
+    public function setDown(): void
     {
-        return __DIR__.'/config.php';
+        //
+    }
+
+    protected function base(): string
+    {
+        return __DIR__;
     }
 }
