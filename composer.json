@@ -7,7 +7,7 @@
         "symfony/debug-bundle": "^8.0"
     },
     "require": {
-        "feloraf/core": "dev-develop"
+        "feloraf/core": "dev-dev"
     },
     "license": "MIT",
     "authors": [
