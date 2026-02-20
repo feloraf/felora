@@ -1,6 +1,6 @@
 services:
   app:
-    image: felora/swoole
+    image: feloraf/felora
     container_name: felora
     environment:
       AUTORELOAD_PROGRAMS: "swoole"

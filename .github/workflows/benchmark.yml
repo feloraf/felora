@@ -24,8 +24,8 @@ jobs:
       - name: Install Composer Dependencies
         run: composer install --no-interaction --prefer-dist --optimize-autoloader
 
-      - name: Build Felora
-        run: ./felora build
+      - name: Pull Felora Image
+        run: docker pull feloraf/felora:latest
 
       - name: Start Felora Server
         run: ./felora up &
