@@ -10,11 +10,6 @@ COMMAND="$1"
 shift 1 # remove first arg so remaining args become options
 
 case "$COMMAND" in
-    build)
-        echo "Building Docker image..."
-        docker build "$DOCKER_DIR" --tag $CONTAINER_NAME/swoole "$@"
-        ;;
-
     up)
         echo "Starting docker compose..."
         docker compose -f "$COMPOSE_FILE" up "$@"
@@ -29,13 +24,11 @@ case "$COMMAND" in
         echo "Usage: $CONTAINER_NAME <command> [options]"
         echo ""
         echo "Commands:"
-        echo "  build                 Build the Docker image ($CONTAINER_NAME/swoole)"
         echo "  up [options]          docker compose up (e.g. -d)"
         echo "  down [options]        docker compose down (e.g. --remove-orphans)"
         echo "  --help                Show this help"
         echo ""
         echo "Examples:"
-        echo "  $CONTAINER_NAME build"
         echo "  $CONTAINER_NAME up -d"
         echo "  $CONTAINER_NAME down --remove-orphans"
         ;;
